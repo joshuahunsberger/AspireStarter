@@ -1,3 +1,5 @@
+using Projects;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 builder.AddAzureContainerAppEnvironment("env");
@@ -15,5 +17,7 @@ var webfrontend = builder.AddViteApp("webfrontend", "../frontend")
     .WaitFor(server);
 
 server.PublishWithContainerFiles(webfrontend, "wwwroot");
+
+var consumer = builder.AddProject<WorkerService>("queueconsumer");
 
 builder.Build().Run();
