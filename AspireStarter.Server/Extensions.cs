@@ -57,7 +57,7 @@ public static class Extensions
                 );
             });
 
-        builder.AddServerServiceDefaults();
+        builder.AddServiceDefaults();
 
         return builder;
     }
