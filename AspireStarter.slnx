@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AspireStarter.AppHost/AspireStarter.AppHost.csproj" />
+  <Project Path="AspireStarter.Server/AspireStarter.Server.csproj" />
+</Solution>
