@@ -7,7 +7,8 @@ var queue = serviceBus.AddServiceBusQueue("queue");
 
 var server = builder.AddProject<Projects.AspireStarter_Server>("server")
     .WithHttpHealthCheck("/health")
-    .WithExternalHttpEndpoints();
+    .WithExternalHttpEndpoints()
+    .WithReference(queue);
 
 var webfrontend = builder.AddViteApp("webfrontend", "../frontend")
     .WithReference(server)
