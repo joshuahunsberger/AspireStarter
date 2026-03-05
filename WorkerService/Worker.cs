@@ -8,6 +8,13 @@ public partial class Worker(ILogger<Worker> logger, ServiceBusClient queueClient
     {
         await using var processor = queueClient.CreateProcessor("queue");
         processor.ProcessMessageAsync += MessageHandler;
+
+        // Start processing
+        await processor.StartProcessingAsync(stoppingToken);
+
+        await Task.Delay(-1, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
+        // Stop processing and dispose
+        await processor.StopProcessingAsync(stoppingToken);
     }
 
     private async Task MessageHandler(ProcessMessageEventArgs args)
