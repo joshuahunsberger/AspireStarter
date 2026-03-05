@@ -9,11 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\AspireStarter.Server\AspireStarter.Server.csproj"/>
+        <ProjectReference Include="..\AspireStarter.Server\AspireStarter.Server.csproj" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Aspire.Hosting.Azure.AppContainers" Version="13.1.2" />
-        <PackageReference Include="Aspire.Hosting.JavaScript" Version="13.1.2"/>
+        <PackageReference Include="Aspire.Hosting.Azure.ServiceBus" Version="13.1.2" />
+        <PackageReference Include="Aspire.Hosting.JavaScript" Version="13.1.2" />
     </ItemGroup>
 </Project>
