@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="AspireStarter.AppHost/AspireStarter.AppHost.csproj" />
   <Project Path="AspireStarter.Server/AspireStarter.Server.csproj" />
+  <Project Path="ServiceDefaults/ServiceDefaults.csproj" />
   <Project Path="WorkerService/WorkerService.csproj" />
 </Solution>

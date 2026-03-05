@@ -5,7 +5,7 @@ using Azure.Messaging.ServiceBus;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire client integrations.
-builder.AddServiceDefaults();
+builder.AddServerServiceDefaults();
 
 builder.AddAzureServiceBusClient("queue");
 
