@@ -1,7 +1,13 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Azure.Messaging.ServiceBus;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire client integrations.
 builder.AddServiceDefaults();
+
+builder.AddAzureServiceBusClient("queue");
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
@@ -24,7 +30,7 @@ string[] summaries =
     ["Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"];
 
 var api = app.MapGroup("/api");
-api.MapGet("weatherforecast", () =>
+api.MapGet("weatherforecast", async (ServiceBusClient client) =>
     {
         var forecast = Enumerable.Range(1, 5).Select(index =>
                 new WeatherForecast
@@ -34,6 +40,11 @@ api.MapGet("weatherforecast", () =>
                     summaries[Random.Shared.Next(summaries.Length)]
                 ))
             .ToArray();
+
+        await using var sender = client.CreateSender("queue");
+        var message = new ServiceBusMessage(JsonSerializer.Serialize(forecast));
+        await sender.SendMessageAsync(message);
+
         return forecast;
     })
     .WithName("GetWeatherForecast");
