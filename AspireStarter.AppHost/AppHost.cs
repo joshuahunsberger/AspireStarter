@@ -1,5 +1,7 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
+builder.AddAzureContainerAppEnvironment("env");
+
 var server = builder.AddProject<Projects.AspireStarter_Server>("server")
     .WithHttpHealthCheck("/health")
     .WithExternalHttpEndpoints();
