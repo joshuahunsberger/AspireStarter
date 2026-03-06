@@ -1,4 +1,5 @@
-﻿using Azure.Monitor.OpenTelemetry.Exporter;
+﻿using System.Diagnostics;
+using Azure.Monitor.OpenTelemetry.Exporter;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry;
@@ -9,6 +10,8 @@ namespace Microsoft.Extensions.Hosting;
 
 public static class Extensions
 {
+    public static ActivitySource AspireStarterActivitySource = new("AspireStarterActivitySource");
+
     public static TBuilder AddServiceDefaults<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
         builder.ConfigureOpenTelemetry();
@@ -51,6 +54,7 @@ public static class Extensions
             .WithTracing(tracing =>
             {
                 tracing.AddSource(builder.Environment.ApplicationName)
+                    .AddSource("AspireStarterActivitySource")
                     .AddSource("Azure")
                     .AddHttpClientInstrumentation();
             });
