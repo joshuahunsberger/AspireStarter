@@ -57,7 +57,7 @@ public static class Extensions
                 );
             });
 
-        builder.AddServiceDefaults();
+        builder.ConfigureOpenTelemetry();
 
         return builder;
     }
