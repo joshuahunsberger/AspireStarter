@@ -4,7 +4,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 builder.AddAzureContainerAppEnvironment("env");
 
-var serviceBus = builder.AddAzureServiceBus("messaging");
+var serviceBus = builder.AddAzureServiceBus("messaging").RunAsEmulator();
 var queue = serviceBus.AddServiceBusQueue("queue");
 
 var appInsights = builder.AddAzureApplicationInsights("appInsights");
