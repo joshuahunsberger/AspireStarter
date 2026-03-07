@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Azure.Messaging.ServiceBus;
 
 namespace WorkerService;
@@ -21,8 +20,6 @@ public partial class Worker(ILogger<Worker> logger, ServiceBusClient queueClient
 
     private async Task MessageHandler(ProcessMessageEventArgs args)
     {
-        using var activity = Extensions.AspireStarterActivitySource
-            .CreateActivity("Consume message", ActivityKind.Consumer);
         LogReceivedMessageMessage(logger, args.Message.Body.ToString());
         await args.CompleteMessageAsync(args.Message);
     }
