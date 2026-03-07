@@ -1,6 +1,7 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using Azure.Messaging.ServiceBus;
+
+AppContext.SetSwitch("Azure.Experimental.EnableActivitySource", true);
 
 var builder = WebApplication.CreateBuilder(args);
 
