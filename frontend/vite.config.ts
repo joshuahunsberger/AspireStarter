@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
+    allowedHosts: ['host.docker.internal', 'aspire.dev.internal'],
     proxy: {
       // Proxy API calls to the app service
       '/api': {

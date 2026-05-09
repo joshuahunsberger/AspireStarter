@@ -9,7 +9,7 @@ var queue = serviceBus.AddServiceBusQueue("queue");
 
 var appInsights = builder.AddAzureApplicationInsights("appInsights");
 
-var server = builder.AddProject<Projects.AspireStarter_Server>("server")
+var server = builder.AddProject<AspireStarter_Server>("server")
     .WithHttpHealthCheck("/health")
     .WithExternalHttpEndpoints()
     .WithReference(queue)
@@ -19,7 +19,13 @@ var webfrontend = builder.AddViteApp("webfrontend", "../frontend")
     .WithReference(server)
     .WaitFor(server);
 
-server.PublishWithContainerFiles(webfrontend, "wwwroot");
+builder.AddYarp("bff")
+    .WithConfiguration(c =>
+    {
+        c.AddRoute("/api/{**catch-all}", server);
+        c.AddRoute("{**catch-all}", webfrontend);
+    })
+    .WithExternalHttpEndpoints();
 
 var consumer = builder.AddProject<WorkerService>("queueconsumer")
     .WithReference(queue)
